@@ -189,8 +189,17 @@ If you have installed kubectl manually, you need to add kubectl autocompletion t
 ```shell
 kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ```
+If autocompletion does not work, make sure `$(brew --prefix)/etc/bash_completion` file is created and loaded in your current shell. You can test it by executing `source $(brew --prefix)/etc/bash_completion` in your current shell. Test autocomplete by executing some kubectl command, like `kubectl cluster<tab>` and it should complete to: `kubectl cluster-info`.
 
+Once confirmed, you can persist your changes by:
+```cat <<EOL >> ~/.bash_profile
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
+EOL```
+       
 The Homebrew project is independent from Kubernetes, so the bash-completion packages are not guaranteed to work.
+
 
 ### Using Zsh
 If you are using zsh edit the ~/.zshrc file and add the following code to enable kubectl autocompletion:
